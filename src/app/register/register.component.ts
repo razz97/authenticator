@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../login/login.component';
+import * as localStorage from 'nativescript-localstorage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ns-register',
@@ -15,7 +17,7 @@ export class RegisterComponent implements OnInit {
   invalid: boolean = false;
   error: string = "";
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,private router: Router) { }
 
   ngOnInit() {}
 
@@ -28,10 +30,9 @@ export class RegisterComponent implements OnInit {
     this.invalid = false;
     this.userService.register(this.user)
       .subscribe((resp) => {
-        console.log(resp);
         if (resp['code'] == 1) {
           localStorage.setItem('token',resp['data']);
-
+          this.router.navigate(["discover"]);
         } else {
           this.invalid = true;
           this.error = resp['message'];

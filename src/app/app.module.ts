@@ -9,6 +9,7 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { RegisterComponent } from './register/register.component';
 import { DiscoverComponent } from './discover/discover.component';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
     bootstrap: [
@@ -24,7 +25,8 @@ import { DiscoverComponent } from './discover/discover.component';
         AppComponent,
         LoginComponent,
         RegisterComponent,
-        DiscoverComponent
+        DiscoverComponent,
+        PostComponent
     ],
     providers: [],
     schemas: [

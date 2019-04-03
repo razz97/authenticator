@@ -1,0 +1,7 @@
+<StackLayout>
+    <TextField required hint="Username" [(ngModel)]="user.username" #username="ngModel" minlength="5"></TextField>
+    <TextField required hint="Password" [(ngModel)]="user.password" secure="true" #password="ngModel" minlength="8"></TextField>
+    <Label class="validation" [visibility]="invalidCredentials ? 'visible' : 'collapse'" text="Invalid credentials" ></Label>
+    <button text="Login" (tap)="submit()" [isEnabled]="username.valid && password.valid"></button>
+    <button text="Sign up" [nsRouterLink]="['/register']"></button>
+</StackLayout>

@@ -20,4 +20,8 @@ export class PhotoService {
     return this.http.post(this.url + "postPhoto.php",photo,this.options);
   }
 
+  getCategories() {
+    return this.http.get(this.url + "photos.php", this.options);
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UrlSerializer, Router } from '@angular/router';
 import { UserService } from '../user.service';
 import * as localStorage from 'nativescript-localstorage';
+import { LoadingIndicator } from 'nativescript-loading-indicator';
 
 export class User {
 
@@ -25,12 +26,14 @@ export class LoginComponent implements OnInit {
 
   user: User = new User();
   invalidCredentials: boolean = false;
+  loader = new LoadingIndicator();
 
   constructor(private userService: UserService,private router: Router) { }
 
   ngOnInit() {}
 
   submit() {
+    this.loader.show();
     this.userService.login(this.user)
       .subscribe((resp) => {
         if (resp['code'] == 1) {
@@ -39,6 +42,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.invalidCredentials = true;
         }
+        this.loader.hide();
       });
   }
 

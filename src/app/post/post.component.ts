@@ -8,11 +8,13 @@ import { fromAsset, ImageSource } from 'tns-core-modules/image-source/image-sour
 import * as imagepicker from "nativescript-imagepicker";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { SelectedIndexChangedEventData } from "nativescript-drop-down";
+import { LoadingIndicator } from 'nativescript-loading-indicator';
+import { Router } from '@angular/router';
 
 export class Photo {
   constructor(
     public base64: string,
-    public categories: [string]
+    public category: string
   ) {}
 }
 
@@ -24,23 +26,25 @@ export class Photo {
 })
 export class PostComponent implements OnInit {
 
-  constructor(public photoService: PhotoService) { }
+  constructor(public photoService: PhotoService,private router: Router) { }
 
-  categories: string[] = ["Category 1", "Category 2","Category 3", "Category 4","Category 5", "Category 6"];
-  photo: Photo = new Photo("", [""]);
+  @ViewChild("image") image: ElementRef;
+  categories: string[] = [];
+  photo: Photo = new Photo("", "");
   isImageSaved: boolean = false;
+  selectedCategory: string = "";
+  loader = new LoadingIndicator();
 
-  @ViewChild("image")
-  image: ElementRef;
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.photoService.getCategories().subscribe(resp => this.categories = resp['data']);
+  }
 
   dialogGetImage() {
     dialogs.action(
       "Choose a source for your image: ", 
       "Cancel", 
-      ["Gallery", "Camera"])
-        .then(res => res === "Gallery" ? this.startGallery() : this.startCamera());
+      ["Gallery", "Camera"]
+    ).then(res => res === "Gallery" ? this.startGallery() : this.startCamera());
   }
 
   startGallery() {
@@ -68,14 +72,20 @@ export class PostComponent implements OnInit {
     });
   }
 
-  public onSelectCategory(args: SelectedIndexChangedEventData) {
-    console.log("Selected: " + this.categories[args.newIndex]);
-}
+  onSelectCategory(args: SelectedIndexChangedEventData) {
+    this.selectedCategory = this.categories[args.newIndex];
+  }
 
   submit() {
+    this.photo.category = this.selectedCategory;
+    this.loader.show();
     this.photoService
       .postPhoto(this.photo)
-      .subscribe(resp => console.log(resp['message']));
+      .subscribe(resp => this.loader.hide());
+  }
+
+  back() {
+    this.router.navigate(["discover"]);
   }
 
 }

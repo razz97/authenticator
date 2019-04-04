@@ -1,9 +1,16 @@
+<ActionBar title="Post a picture">
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="back()"></NavigationButton>
+  </ActionBar>  
 <StackLayout>
-    <Image #image [width]="300" [height]="300" stretch="aspectFit" src="~/images/add-image.png" (tap)="dialogGetImage()"></Image>
-    <DropDown #dd
+    <Image #image [width]="250" [height]="250" style="margin: 25px;" stretch="aspectFit" src="~/images/add-image.png" (tap)="dialogGetImage()"></Image>
+    <DropDown #dd 
+        style="margin: 50px; height: 75px"
         backroundColor="red"
         [items]="categories"
+        hint="Select a category."
         (selectedIndexChanged)="onSelectCategory($event)">
     </DropDown>
-    <Button text="submit" [isEnabled]="isImageSaved" (tap)="submit()"></Button>
+    <Label text="Or create a new category:" style="margin: 15px;"></Label>
+    <TextField #category="ngModel" required hint="Category" [(ngModel)]="selectedCategory" style="margin: 15px;"></TextField>
+    <Button text="submit" [isEnabled]="isImageSaved && category.valid" (tap)="submit()" style="margin: 15px;"></Button>
 </StackLayout>

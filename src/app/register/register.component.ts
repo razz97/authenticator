@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import { User } from '../login/login.component';
 import * as localStorage from 'nativescript-localstorage';
 import { Router } from '@angular/router';
+import { LoadingIndicator } from 'nativescript-loading-indicator';
 
 @Component({
   selector: 'ns-register',
@@ -16,6 +17,7 @@ export class RegisterComponent implements OnInit {
   passwordConfirm: string = "";
   invalid: boolean = false;
   error: string = "";
+  loader = new LoadingIndicator();
 
   constructor(private userService: UserService,private router: Router) { }
 
@@ -28,6 +30,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.invalid = false;
+    this.loader.show();
     this.userService.register(this.user)
       .subscribe((resp) => {
         if (resp['code'] == 1) {
@@ -37,6 +40,7 @@ export class RegisterComponent implements OnInit {
           this.invalid = true;
           this.error = resp['message'];
         }
+        this.loader.hide();
       });
   }
 

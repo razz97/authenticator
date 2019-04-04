@@ -1,1 +1,9 @@
-<Image #image></Image>
+<StackLayout>
+    <Image #image [width]="300" [height]="300" stretch="aspectFit" src="~/images/add-image.png" (tap)="dialogGetImage()"></Image>
+    <DropDown #dd
+        backroundColor="red"
+        [items]="categories"
+        (selectedIndexChanged)="onSelectCategory($event)">
+    </DropDown>
+    <Button text="submit" [isEnabled]="isImageSaved" (tap)="submit()"></Button>
+</StackLayout>

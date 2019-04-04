@@ -23,6 +23,8 @@
     "@angular/router": "~7.2.0",
     "nativescript-angular": "~7.2.1",
     "nativescript-camera": "^4.4.0",
+    "nativescript-drop-down": "^5.0.0",
+    "nativescript-imagepicker": "^6.1.2",
     "nativescript-localstorage": "^2.0.0",
     "nativescript-theme-core": "~1.0.4",
     "reflect-metadata": "~0.1.12",

@@ -1,20 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { UrlSerializer, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../user.service';
-import * as localStorage from 'nativescript-localstorage';
 import { LoadingIndicator } from 'nativescript-loading-indicator';
-
-export class User {
-
-  constructor(
-    public username: string = "",
-    public password: string = ""
-  ) {}
-
-  equals(user: User): boolean {
-    return this.username === user.username;
-  }
-}
+import { User } from '../model/user';
+import { SnackBar } from "nativescript-snackbar";
+import * as utils from "tns-core-modules/utils/utils";
+import * as localStorage from 'nativescript-localstorage';
 
 @Component({
   selector: 'ns-login',
@@ -27,7 +18,7 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   invalidCredentials: boolean = false;
   loader = new LoadingIndicator();
-
+  snackbar = new SnackBar();
   constructor(private userService: UserService,private router: Router) { }
 
   ngOnInit() {}
@@ -40,7 +31,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token',resp['data']);
           this.router.navigate(["discover"]);
         } else {
-          this.invalidCredentials = true;
+          this.user.password = "";
+          utils.ad.dismissSoftInput();
+          this.snackbar.simple("Invalid credentials");
         }
         this.loader.hide();
       });

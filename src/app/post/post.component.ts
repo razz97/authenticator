@@ -1,22 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import * as camera from "nativescript-camera";
-import { Image } from "tns-core-modules/ui/image";
 import { ImageAsset } from 'tns-core-modules/image-asset/image-asset';
-import { stack } from 'tns-core-modules/ui/frame/frame';
 import { PhotoService } from '../photo.service';
-import { fromAsset, ImageSource } from 'tns-core-modules/image-source/image-source';
-import * as imagepicker from "nativescript-imagepicker";
-import * as dialogs from "tns-core-modules/ui/dialogs";
+import { fromAsset } from 'tns-core-modules/image-source/image-source';
 import { SelectedIndexChangedEventData } from "nativescript-drop-down";
 import { LoadingIndicator } from 'nativescript-loading-indicator';
 import { Router } from '@angular/router';
-
-export class Photo {
-  constructor(
-    public base64: string,
-    public category: string
-  ) {}
-}
+import { Photo } from '../model/photo';
+import * as imagepicker from "nativescript-imagepicker";
+import * as dialogs from "tns-core-modules/ui/dialogs";
+import * as camera from "nativescript-camera";
 
 @Component({
   selector: 'ns-post',

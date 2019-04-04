@@ -1,3 +1,6 @@
-<ActionBar title="Discover">
+<ActionBar title="Discover" >
     <ActionItem [nsRouterLink]="['/post']" android.systemIcon="ic_menu_add"></ActionItem>
 </ActionBar>
+<StackLayout>
+    <Image *ngFor="let photo of photos" src="{{photo.url}}" height="300px;" style="margin: 25px; background-color: aquamarine;" stretch="aspectFit"></Image>
+</StackLayout>

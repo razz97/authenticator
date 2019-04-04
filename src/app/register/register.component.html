@@ -1,8 +1,10 @@
+<ActionBar title="Register">
+        <ActionItem text="Log in" [nsRouterLink]="['/login']" class="btn"></ActionItem>
+</ActionBar>
 <StackLayout>
-        <TextField required hint="Username" [(ngModel)]="user.username" #username="ngModel" minlength="5"></TextField>
-        <TextField required hint="Password" [(ngModel)]="user.password" secure="true" #password="ngModel" minlength="8"></TextField>
-        <TextField required hint="Confirm password" [(ngModel)]="passwordConfirm" secure="true" #passRepeat="ngModel" minlength="8"></TextField>
-        <Label class="validation" [visibility]="invalid ? 'visible' : 'collapse'" text="{{error}}" ></Label>
-        <button text="Register" (tap)="submit()" [isEnabled]="username.valid && password.valid && passRepeat.valid"></button>
-        <button text="Login" [nsRouterLink]="['/login']"></button>
+        <Image height="200px;" src="~/images/graffiti.png" class="m20"></Image>
+        <TextField required hint="Username" [(ngModel)]="user.username" #username="ngModel" minlength="5" class="m20"></TextField>
+        <TextField required hint="Password" [(ngModel)]="user.password" secure="true" #password="ngModel" minlength="8" class="m20"></TextField>
+        <TextField required hint="Confirm password" [(ngModel)]="passwordConfirm" secure="true" #passRepeat="ngModel" minlength="8" class="m20"></TextField>
+        <button text="Register" (tap)="submit()" [isEnabled]="username.valid && password.valid && passRepeat.valid" class="btn orange m20"></button>
 </StackLayout>

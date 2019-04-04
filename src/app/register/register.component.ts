@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { User } from '../login/login.component';
 import * as localStorage from 'nativescript-localstorage';
 import { Router } from '@angular/router';
 import { LoadingIndicator } from 'nativescript-loading-indicator';
+import { User } from '../model/user';
 
 @Component({
   selector: 'ns-register',

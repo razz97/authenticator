@@ -9,6 +9,9 @@ import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { RegisterComponent } from './register/register.component';
 import { DiscoverComponent } from './discover/discover.component';
 import { PostComponent } from './post/post.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ImageDetailsComponent } from './image-details/image-details.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
     bootstrap: [
@@ -26,7 +29,10 @@ import { PostComponent } from './post/post.component';
         LoginComponent,
         RegisterComponent,
         DiscoverComponent,
-        PostComponent
+        PostComponent,
+        ProfileComponent,
+        ImageDetailsComponent,
+        UserComponent
     ],
     providers: [],
     schemas: [

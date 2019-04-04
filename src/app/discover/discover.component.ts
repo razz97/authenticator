@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PhotoService } from '../photo.service';
+import { Photo } from '../model/photo';
 
 @Component({
   selector: 'ns-discover',
@@ -8,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiscoverComponent implements OnInit {
 
-  constructor() { }
+  constructor(private photoService: PhotoService) { }
+
+  photos: Photo[] = [];
 
   ngOnInit() {
+    this.photoService.getPhotos().subscribe(resp => this.photos = resp['data']);
   }
 
 }

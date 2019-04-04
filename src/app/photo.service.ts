@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Photo } from './post/post.component';
-
+import { Photo } from './model/photo';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,11 +16,15 @@ export class PhotoService {
   };
 
   postPhoto(photo: Photo) {
-    return this.http.post(this.url + "postPhoto.php",photo,this.options);
+    return this.http.post(this.url + "photo.php",photo,this.options);
   }
 
   getCategories() {
-    return this.http.get(this.url + "photos.php", this.options);
+    return this.http.get(this.url + "category.php", this.options);
+  }
+
+  getPhotos() {
+    return this.http.get(this.url + "photo.php", this.options);
   }
 
 }

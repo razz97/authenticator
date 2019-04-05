@@ -1,5 +1,6 @@
 <ActionBar title="Discover" >
     <ActionItem [nsRouterLink]="['/post']" android.systemIcon="ic_menu_add"></ActionItem>
+    <ActionItem (tap)="logout()"><Button text="Log out" (tap)="logout()"></Button></ActionItem>
 </ActionBar>
 <StackLayout>
   <DropDown #dd class="dropdown" [items]="categories" (selectedIndexChanged)="onSelectCategory($event)"></DropDown>

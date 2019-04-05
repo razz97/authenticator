@@ -8,7 +8,6 @@ import { User } from '../model/user';
 @Component({
   selector: 'ns-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
   moduleId: module.id,
 })
 export class RegisterComponent implements OnInit {

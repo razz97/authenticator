@@ -5,6 +5,7 @@ export class Photo {
       public url: string = "",
       public id: string = "",
       public userid: string = "",
-      public username: string = ""
+      public username: string = "",
+      public location: string = "default"
     ) {}
   }

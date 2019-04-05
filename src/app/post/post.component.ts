@@ -6,23 +6,24 @@ import { SelectedIndexChangedEventData } from "nativescript-drop-down";
 import { LoadingIndicator } from 'nativescript-loading-indicator';
 import { Router } from '@angular/router';
 import { Photo } from '../model/photo';
+import { isEnabled, enableLocationRequest, getCurrentLocation, watchLocation, distance, clearWatch, Location } from "nativescript-geolocation";
 import * as imagepicker from "nativescript-imagepicker";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import * as camera from "nativescript-camera";
-import { PlatformLocation } from '@angular/common';
+import { SnackBar } from 'nativescript-snackbar';
+import { componentNeedsResolution } from '@angular/core/src/metadata/resource_loading';
 
 @Component({
   selector: 'ns-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css'],
   moduleId: module.id,
 })
 export class PostComponent implements OnInit {
 
   constructor(
     private photoService: PhotoService,
-    private router: Router, 
-    private location: PlatformLocation) { }
+    private router: Router
+  ) { }
 
   @ViewChild("image") image: ElementRef;
   categories: string[] = [];
@@ -30,9 +31,9 @@ export class PostComponent implements OnInit {
   isImageSaved: boolean = false;
   selectedCategory: string = "";
   loader = new LoadingIndicator();
+  snackbar = new SnackBar();
 
   ngOnInit() {
-    this.location.onPopState(() => this.back());
     this.photoService.getCategories().subscribe(resp => this.categories = resp['data']);
   }
 
@@ -82,12 +83,40 @@ export class PostComponent implements OnInit {
   submit() {
     this.photo.category = this.selectedCategory;
     this.loader.show();
-    this.photoService
-      .postPhoto(this.photo)
-      .subscribe(resp => {
+    isEnabled().then(en => en 
+      ? this.requestLocationThenPost() 
+      : enableLocationRequest().then(() => this.requestLocationThenPost(),() => this.errorSnackBar())
+    , () => this.errorSnackBar());
+  }
+
+  requestLocationThenPost() {
+    let options = {desiredAccuracy: 3, updateDistance: 10, maximumAge: 20000, timeout: 20000};
+    getCurrentLocation(options).then(loc => {
+          if (loc) {
+            this.photoService.getLocationInfo(loc).subscribe((resp) => this.locationReadyPostPhoto(resp),() => this.errorSnackBar());
+          } else {
+            this.errorSnackBar();
+          }
+      }, 
+      () => this.errorSnackBar()
+    );
+  }
+
+  locationReadyPostPhoto(resp) {
+    if (resp && resp['results'] && resp['results'][0] && resp['results'][0]['formatted_address']) {
+      this.photo.location = resp['results'][0]['formatted_address'];
+      this.photoService.postPhoto(this.photo).subscribe(resp => {
         this.loader.hide();
         this.router.navigate(["/image", resp['data']['id']]);
-      });
+      }, () => this.errorSnackBar());
+    } else {
+      this.errorSnackBar();
+    }
+  }
+
+  errorSnackBar() {
+    this.snackbar.action({actionText:"Retry",snackText:"There was an error",hideDelay:9999999999}).then(() => this.submit());
+    this.loader.hide();
   }
 
   back() {

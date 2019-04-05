@@ -6,11 +6,11 @@ import { User } from '../model/user';
 import { SnackBar } from "nativescript-snackbar";
 import * as utils from "tns-core-modules/utils/utils";
 import * as localStorage from 'nativescript-localstorage';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'ns-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
   moduleId: module.id,
 })
 export class LoginComponent implements OnInit {
@@ -21,7 +21,11 @@ export class LoginComponent implements OnInit {
   snackbar = new SnackBar();
   constructor(private userService: UserService,private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (localStorage.getItem('token') != "null") {
+      this.router.navigate(['discover']);
+    }
+  }
 
   submit() {
     this.loader.show();

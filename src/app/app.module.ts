@@ -9,9 +9,7 @@ import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { RegisterComponent } from './register/register.component';
 import { DiscoverComponent } from './discover/discover.component';
 import { PostComponent } from './post/post.component';
-import { ProfileComponent } from './profile/profile.component';
 import { ImageDetailsComponent } from './image-details/image-details.component';
-import { UserComponent } from './user/user.component';
 import { CollectionViewModule } from "nativescript-collectionview/angular";
 
 @NgModule({
@@ -32,9 +30,7 @@ import { CollectionViewModule } from "nativescript-collectionview/angular";
         RegisterComponent,
         DiscoverComponent,
         PostComponent,
-        ProfileComponent,
-        ImageDetailsComponent,
-        UserComponent
+        ImageDetailsComponent
     ],
     providers: [],
     schemas: [

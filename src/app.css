@@ -26,13 +26,10 @@ refer to http://docs.nativescript.org/ui/theme.
 
 .btn {
     position: relative;
-  
     display: block;
     margin: 30px auto;
     padding: 0;
-  
     overflow: hidden;
-  
     border-width: 0;
     outline: none;
     border-radius: 2px;

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Photo } from '../model/photo';
 import { PhotoService } from '../photo.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import * as dialogs from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'ns-image-details',
   templateUrl: './image-details.component.html',
-  styleUrls: ['./image-details.component.css'],
   moduleId: module.id,
 })
 export class ImageDetailsComponent implements OnInit {
@@ -29,10 +29,11 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   infoDialog() {
-    dialogs.confirm({ message: "Author: " + this.image.username, okButtonText: "Go to " + this.image.username + " profile"})
-    .then(res => {
-      this.router.navigate(["user", this.image.userid]);
-    });
+    let options = {
+      message: "Author: " + this.image.username + "\nCategory: " + this.image.category +  "\nLocation: "+this.image.location,
+      title:"Information", 
+      okButtonText: "Done"
+    }
+    dialogs.alert(options);
   }
-
 }

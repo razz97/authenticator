@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Photo } from './model/photo';
+import { Location } from 'nativescript-geolocation';
 @Injectable({
   providedIn: 'root'
 })
@@ -33,5 +34,12 @@ export class PhotoService {
 
   getPhotoInfo(id: string) {
     return this.http.get(this.url + "photo.php?id=" + id, this.options);
+  }
+
+  getLocationInfo(loc: Location) {
+    return this.http.get(
+      "https://maps.googleapis.com/maps/api/geocode/json?latlng="+loc.latitude+","+loc.longitude+"&sensor=true&key=AIzaSyA_KnYExAHzgIvsTZoEg5h10z7WW-MWJYQ",
+      this.options
+    );  
   }
 }

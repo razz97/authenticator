@@ -25,6 +25,7 @@
     "nativescript-camera": "^4.4.0",
     "nativescript-collectionview": "^1.0.17",
     "nativescript-drop-down": "^5.0.0",
+    "nativescript-geolocation": "^5.0.0",
     "nativescript-imagepicker": "^6.1.2",
     "nativescript-loading-indicator": "^2.4.0",
     "nativescript-localstorage": "^2.0.0",

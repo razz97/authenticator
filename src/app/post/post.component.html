@@ -2,15 +2,14 @@
     <NavigationButton android.systemIcon="ic_menu_back" (tap)="back()"></NavigationButton>
   </ActionBar>  
 <StackLayout>
-    <Image #image [width]="250" [height]="250" style="margin: 25px;" stretch="aspectFit" src="~/images/add-image.png" (tap)="dialogGetImage()"></Image>
-    <DropDown #dd 
-        style="margin: 50px; height: 75px"
-        backroundColor="red"
+    <Image #image [width]="250" [height]="250" style="margin-top: 25px; margin: 20px;" src="~/images/add-image.png" (tap)="dialogGetImage()"></Image>
+    <Label text="Choose a category from the list or write your own:" style="font-size: 15; text-align: center; margin: 30px;" ></Label>
+    <DropDown #dd class="dropdown m20" style="font-size: 15"
         [items]="categories"
-        hint="Select a category."
+        hint="Existing categories"
         (selectedIndexChanged)="onSelectCategory($event)">
     </DropDown>
-    <Label text="Or create a new category:" style="margin: 15px;"></Label>
-    <TextField #category="ngModel" required hint="Category" [(ngModel)]="selectedCategory" style="margin: 15px;"></TextField>
-    <Button text="submit" [isEnabled]="isImageSaved && category.valid" (tap)="submit()" style="margin: 15px;"></Button>
+    
+    <TextField #category="ngModel" required hint="Category" [(ngModel)]="selectedCategory" ></TextField>
+    <Button text="submit" [isEnabled]="isImageSaved && category.valid" (tap)="submit()" style="margin: 30px;"></Button>
 </StackLayout>

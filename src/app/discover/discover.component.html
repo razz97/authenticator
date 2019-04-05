@@ -2,5 +2,14 @@
     <ActionItem [nsRouterLink]="['/post']" android.systemIcon="ic_menu_add"></ActionItem>
 </ActionBar>
 <StackLayout>
-    <Image *ngFor="let photo of photos" src="{{photo.url}}" height="300px;" style="margin: 25px; background-color: aquamarine;" stretch="aspectFit"></Image>
+  <DropDown #dd class="dropdown" [items]="categories" (selectedIndexChanged)="onSelectCategory($event)"></DropDown>
+  <GridLayout class="page">
+    <CollectionView [items]="photos" colWidth="46%" rowHeight="150" #collection>
+      <ng-template let-item="item">
+        <StackLayout margin="7" [nsRouterLink]="['/image', item.id]"  borderRadius="5" class="list-group-item photoWrapper" >
+          <Image [src]="item.url" class="list-group-item" borderRadius="5" stretch="aspectFill"></Image>
+        </StackLayout>
+      </ng-template>
+    </CollectionView>
+  </GridLayout>
 </StackLayout>

@@ -12,6 +12,7 @@ import { PostComponent } from './post/post.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ImageDetailsComponent } from './image-details/image-details.component';
 import { UserComponent } from './user/user.component';
+import { CollectionViewModule } from "nativescript-collectionview/angular";
 
 @NgModule({
     bootstrap: [
@@ -22,7 +23,8 @@ import { UserComponent } from './user/user.component';
         NativeScriptFormsModule,
         NativeScriptHttpClientModule,
         AppRoutingModule,
-        DropDownModule
+        DropDownModule,
+        CollectionViewModule
     ],
     declarations: [
         AppComponent,

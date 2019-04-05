@@ -27,4 +27,11 @@ export class PhotoService {
     return this.http.get(this.url + "photo.php", this.options);
   }
 
+  getPhotosByCategory(category: string) {
+    return this.http.get(this.url + "photo.php?category=" + category, this.options);
+  }
+
+  getPhotoInfo(id: string) {
+    return this.http.get(this.url + "photo.php?id=" + id, this.options);
+  }
 }

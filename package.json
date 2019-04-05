@@ -23,6 +23,7 @@
     "@angular/router": "^7.2.12",
     "nativescript-angular": "^7.2.3",
     "nativescript-camera": "^4.4.0",
+    "nativescript-collectionview": "^1.0.17",
     "nativescript-drop-down": "^5.0.0",
     "nativescript-imagepicker": "^6.1.2",
     "nativescript-loading-indicator": "^2.4.0",

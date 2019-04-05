@@ -9,6 +9,7 @@ import { Photo } from '../model/photo';
 import * as imagepicker from "nativescript-imagepicker";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import * as camera from "nativescript-camera";
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'ns-post',
@@ -18,7 +19,10 @@ import * as camera from "nativescript-camera";
 })
 export class PostComponent implements OnInit {
 
-  constructor(public photoService: PhotoService,private router: Router) { }
+  constructor(
+    private photoService: PhotoService,
+    private router: Router, 
+    private location: PlatformLocation) { }
 
   @ViewChild("image") image: ElementRef;
   categories: string[] = [];
@@ -28,6 +32,7 @@ export class PostComponent implements OnInit {
   loader = new LoadingIndicator();
 
   ngOnInit() {
+    this.location.onPopState(() => this.back());
     this.photoService.getCategories().subscribe(resp => this.categories = resp['data']);
   }
 
@@ -36,7 +41,13 @@ export class PostComponent implements OnInit {
       "Choose a source for your image: ", 
       "Cancel", 
       ["Gallery", "Camera"]
-    ).then(res => res === "Gallery" ? this.startGallery() : this.startCamera());
+    ).then(res => { 
+      if (res === "Gallery") {
+        this.startGallery();
+      } else if (res === "Camera") {
+        this.startCamera();
+      }
+    });
   }
 
   startGallery() {
@@ -65,7 +76,7 @@ export class PostComponent implements OnInit {
   }
 
   onSelectCategory(args: SelectedIndexChangedEventData) {
-    this.selectedCategory = this.categories[args.newIndex];
+    this.selectedCategory = this.categories[args.newIndex][0];
   }
 
   submit() {
@@ -73,7 +84,10 @@ export class PostComponent implements OnInit {
     this.loader.show();
     this.photoService
       .postPhoto(this.photo)
-      .subscribe(resp => this.loader.hide());
+      .subscribe(resp => {
+        this.loader.hide();
+        this.router.navigate(["/image", resp['data']['id']]);
+      });
   }
 
   back() {
